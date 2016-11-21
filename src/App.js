@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-
-import {
-  Text,
-  View
-} from 'react-native';
+import { Navigator} from 'react-native';
+import Welcome from './scenes/Welcome';
 
 export default class App extends Component {
   render() {
     return (
-      <View>
-        <Text>
-          Welcome to React Native!
-        </Text>
-      </View>
+      <Navigator
+        initialRoute={{ title: 'Welcome', index: 0 }}
+        renderScene={(route, navigator) => {
+          return <Welcome title={route.title} />
+        }}
+      />
     );
   }
 }

@@ -1,0 +1,7 @@
+{
+  "extends": ["react-native"],
+  "env": {
+      "jest": true,
+      "browser": true
+  }
+}
