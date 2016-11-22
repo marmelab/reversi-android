@@ -5,7 +5,8 @@ import {
   getCellTypeDistribution,
   getFlippedCellFromCellChangeInDirection,
   getFlippedCellsFromCellChange,
-  getLegalCellChangesForCellType
+  getLegalCellChangesForCellType,
+  isLegalCellChange
 } from '../../../src/reversi/board/Board'
 
 import {
@@ -92,6 +93,14 @@ describe('Board', () => {
     expect(getFlippedCellFromCellChangeInDirection(createCell(7, 7, TYPE_BLACK), board, createVector(-1, 1))).toEqual([])
     expect(getFlippedCellFromCellChangeInDirection(createCell(3, 5, TYPE_BLACK), board, createVector(0, -1))).toEqual([createCell(3, 4, TYPE_BLACK)])
 
+    board.cells[3][2] = TYPE_BLACK;
+
+    expect(getFlippedCellFromCellChangeInDirection(createCell(1, 3, TYPE_WHITE), board, createVector(1, 0))).toEqual([
+      createCell(2, 3, TYPE_WHITE),
+      createCell(3, 3, TYPE_WHITE)
+    ])
+
+
   });
 
   it('getFlippedCellFromCellChangeInDirection should return flipped Cell from cell change in direction', () => {
@@ -101,10 +110,32 @@ describe('Board', () => {
 
   });
 
-  it('getFlippedCellFromCellChangeInDirection should return flipped Cell from cell change in direction', () => {
+  it('getLegalCellChangesForCellType should return legal cel changes for cell type', () => {
 
     const board = create(8, 8)
-    expect(getLegalCellChangesForCellType(TYPE_WHITE, board)).toEqual([createCell(3, 3, TYPE_WHITE)])
+
+    expect(getLegalCellChangesForCellType(TYPE_WHITE, board)).toEqual([
+      createCell(3, 2, TYPE_WHITE),
+      createCell(2, 3, TYPE_WHITE),
+      createCell(5, 4, TYPE_WHITE),
+      createCell(4, 5, TYPE_WHITE)
+    ])
+
+  });
+
+  it('isLegalCellChange should return false for illegal cellChange', () => {
+
+    const board = create(8, 8)
+
+    expect(isLegalCellChange(createCell(0, 0, TYPE_WHITE), board)).toEqual(false)
+    expect(isLegalCellChange(createCell(2, 3, TYPE_BLACK), board)).toEqual(false)
+
+  });
+
+  it('isLegalCellChange should return true for legal cellChange', () => {
+
+    const board = create(8, 8)
+    expect(isLegalCellChange(createCell(2, 3, TYPE_WHITE), board)).toEqual(true)
 
   });
 

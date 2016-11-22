@@ -105,7 +105,19 @@ export function getFlippedCellFromCellChangeInDirection(cellChange, board, direc
 }
 
 export function isLegalCellChange(cellChange, board){
-  return getFlippedCellsFromCellChange(cellChange, board).length > 0
+
+  if(!(cellChange.y in board.cells) || board.cells[cellChange.y][cellChange.x] !== TYPE_EMPTY){
+    return false
+  }
+
+  for (const directionVector of getDirectionnalVectors()){
+    if(getFlippedCellFromCellChangeInDirection(cellChange, board, directionVector).length > 0){
+      return true
+    }
+  }
+
+  return false
+
 }
 
 export function getLegalCellChangesForCellType(cellType, board){
@@ -113,7 +125,7 @@ export function getLegalCellChangesForCellType(cellType, board){
   const cellChanges = []
 
   board.cells.forEach((row, rowKey) => {
-    row.forEach((cellType, cellKey) => {
+    row.forEach((cell, cellKey) => {
       const cellChange = createCell(cellKey, rowKey, cellType)
       if(isLegalCellChange(cellChange, board)){
         cellChanges.push(cellChange)
