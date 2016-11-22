@@ -8,17 +8,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#29bc7c',
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
 });
 
-const Welcome = () => {
-    return (
-        <View style={styles.view}>
-        <Subheader text="Normal Subheader" inset/>
-          <Text>dsdssd</Text>
-          <Button value="My Button" text="test" />
-        </View>
+const Welcome = () => (
+    <View style={styles.view}>
+        <Subheader text="Normal Subheader" inset />
+        <Text>dsdssd</Text>
+        <Button value="My Button" text="test" />
+    </View>
     );
-};
 
 export default Welcome;

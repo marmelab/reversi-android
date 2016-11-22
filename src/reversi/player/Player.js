@@ -1,6 +1,6 @@
-export function create(name, cellType){
-  return {
-    name,
-    cellType
-  }
+export function create(name, cellType) {
+    return {
+        name,
+        cellType,
+    };
 }

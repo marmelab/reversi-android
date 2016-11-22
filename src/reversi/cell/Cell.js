@@ -1,36 +1,37 @@
-export const TYPE_EMPTY = 0
-export const TYPE_BLACK = 1
-export const TYPE_WHITE = 2
+export const TYPE_EMPTY = 0;
+export const TYPE_BLACK = 1;
+export const TYPE_WHITE = 2;
 
-export function create(x, y, type){
-  return {
-    x,
-    y,
-    type
-  }
+export function create(x, y, type) {
+    return {
+        x,
+        y,
+        type,
+    };
 }
 
-export function getColor(cell){
-  switch(cell.type){
+export function getColor(cell) {
+    switch (cell.type) {
     case TYPE_BLACK:
-      return '#000000'
+        return '#000000';
     case TYPE_WHITE:
-      return '#FFFFFF'
-  }
-  return null
+        return '#FFFFFF';
+    }
+    return null;
 }
 
-export function getTypes(){
-  return [ TYPE_EMPTY, TYPE_WHITE, TYPE_BLACK ]
+export function getTypes() {
+    return [TYPE_EMPTY, TYPE_WHITE, TYPE_BLACK];
 }
 
-export function reverseCellType(cellType){
-  switch(cellType){
+export function reverseCellType(cellType) {
+    switch (cellType) {
     case TYPE_BLACK:
-      return TYPE_WHITE
+        return TYPE_WHITE;
     case TYPE_WHITE:
-      return TYPE_BLACK
+        return TYPE_BLACK;
     case TYPE_EMPTY:
-      return TYPE_EMPTY
-  }
+        return TYPE_EMPTY;
+    }
+    return null;
 }
