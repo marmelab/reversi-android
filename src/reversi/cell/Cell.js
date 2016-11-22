@@ -16,8 +16,9 @@ export function getColor(cell) {
         return '#000000';
     case TYPE_WHITE:
         return '#FFFFFF';
+    default:
+        return null;
     }
-    return null;
 }
 
 export function getTypes() {
@@ -32,6 +33,7 @@ export function reverseCellType(cellType) {
         return TYPE_BLACK;
     case TYPE_EMPTY:
         return TYPE_EMPTY;
+    default:
+        return null;
     }
-    return null;
 }
