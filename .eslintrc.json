@@ -1,0 +1,18 @@
+{
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "env": {
+        "mocha": true,
+        "browser": true,
+        "jest": true
+    },
+    "rules": {
+        "max-len": "off",
+        "func-names": "off",
+        "indent": [2, 4],
+        "react/jsx-indent": [2, 4],
+        "react/jsx-indent-props": [2, 4],
+        "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+        "no-use-before-define": ["error", { "functions": false, "classes": false }]
+    }
+}

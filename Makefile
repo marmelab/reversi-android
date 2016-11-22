@@ -1,4 +1,4 @@
-.PHONY: install run start-server test
+.PHONY: install run start-server test lint
 
 install:
 	npm install
@@ -11,3 +11,6 @@ start-server:
 
 test:
 	node_modules/.bin/jest
+
+lint:
+	node_modules/.bin/eslint src/

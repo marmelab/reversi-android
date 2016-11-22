@@ -10,7 +10,7 @@ Install dependencies
 make install
 ```
 
-## Run
+## Run Server
 
 Run react-native server
 
@@ -32,4 +32,12 @@ Runs all the tests of the project
 
 ```
 make test
+```
+
+## Lint
+
+Runs linter
+
+```
+make lint
 ```
