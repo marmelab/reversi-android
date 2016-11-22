@@ -44,7 +44,7 @@ export function drawCells(cells, board){
 
 export function getCellTypeDistribution(board){
 
-  const distribution = {[TYPE_WHITE]: 0, [TYPE_BLACK]: 0, [TYPE_EMPTY]: 0}
+  const distribution = {[TYPE_WHITE]: 0, [TYPE_BLACK]: 0, [TYPE_EMPTY]: 0 }
 
   for (const row of board.cells){
     for (const cellType of row){
