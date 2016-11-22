@@ -6,6 +6,7 @@ import {
     TYPE_WHITE,
     create as createCell,
     reverseCellType,
+    getTypes as getCellTypes,
 } from '../cell/Cell';
 
 import {
@@ -44,19 +45,10 @@ export function drawCells(cells, board) {
 }
 
 export function getCellTypeDistribution(board) {
-    const distribution = {
-        [TYPE_WHITE]: 0,
-        [TYPE_BLACK]: 0,
-        [TYPE_EMPTY]: 0,
-    };
-
-    board.cells.forEach((row) => {
-        row.forEach((cellType) => {
-            distribution[cellType] += 1;
-        });
-    });
-
-    return distribution;
+    return getCellTypes().reduce((result, cellType) => ({
+        ...result,
+        [cellType]: board.cells.reduce((total, row) => total + row.filter(cellValue => cellValue === cellType).length, 0),
+    }), {});
 }
 
 export function validateSize(board) {
@@ -112,16 +104,11 @@ export function isLegalCellChange(cellChange, board) {
 }
 
 export function getLegalCellChangesForCellType(cellType, board) {
-    const cellChanges = [];
-
-    board.cells.forEach((row, rowKey) => {
-        row.forEach((cell, cellKey) => {
-            const cellChange = createCell(cellKey, rowKey, cellType);
-            if (isLegalCellChange(cellChange, board)) {
-                cellChanges.push(cellChange);
-            }
-        });
-    });
-
-    return cellChanges;
+    return board.cells.reduce((result, row, rowIdx) =>
+        [
+            ...result,
+            ...row
+                .map((cellValue, cellIdx) => createCell(cellIdx, rowIdx, cellType))
+                .filter(cellChange => isLegalCellChange(cellChange, board)),
+        ], []);
 }
