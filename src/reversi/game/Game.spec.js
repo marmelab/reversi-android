@@ -1,19 +1,19 @@
 import {
     create,
-} from '../../../src/reversi/game/Game';
+} from './Game';
 
 import {
     create as createBoard,
-} from '../../../src/reversi/board/Board';
+} from '../board/Board';
 
 import {
     create as createPlayer,
-} from '../../../src/reversi/player/Player';
+} from '../player/Player';
 
 import {
     TYPE_WHITE,
     TYPE_BLACK,
-} from '../../../src/reversi/cell/Cell';
+} from '../cell/Cell';
 
 describe('Game', () => {
     it('create should return valid game', () => {

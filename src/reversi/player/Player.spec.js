@@ -1,10 +1,10 @@
 import {
     create,
-} from '../../../src/reversi/player/Player';
+} from './Player';
 
 import {
     TYPE_BLACK,
-} from '../../../src/reversi/cell/Cell';
+} from '../cell/Cell';
 
 describe('Player', () => {
     it('create should return valid player', () => {

@@ -2,7 +2,7 @@ import {
     create,
     add,
     addGenerator,
-} from '../../../src/reversi/vector/Vector';
+} from './Vector';
 
 describe('Vector', () => {
     it('add should return a sum of vector', () => {

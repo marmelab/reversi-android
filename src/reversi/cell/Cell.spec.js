@@ -5,7 +5,7 @@ import {
     create,
     getTypes,
     getColor,
-} from '../../../src/reversi/cell/Cell';
+} from './Cell';
 
 describe('Cell', () => {
     it('create should return valid cell', () => {

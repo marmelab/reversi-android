@@ -1,6 +1,6 @@
 import {
     create,
-} from '../../../src/reversi/matrix/Matrix';
+} from './Matrix';
 
 describe('Matrix', () => {
     it('create should return valid matrix', () => {

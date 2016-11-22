@@ -7,18 +7,18 @@ import {
     getFlippedCellsFromCellChange,
     getLegalCellChangesForCellType,
     isLegalCellChange,
-} from '../../../src/reversi/board/Board';
+} from './Board';
 
 import {
     TYPE_EMPTY,
     TYPE_BLACK,
     TYPE_WHITE,
     create as createCell,
-} from '../../../src/reversi/cell/Cell';
+} from '../cell/Cell';
 
 import {
     create as createVector,
-} from '../../../src/reversi/vector/Vector';
+} from '../vector/Vector';
 
 describe('Board', () => {
     it('create should return valid board', () => {
