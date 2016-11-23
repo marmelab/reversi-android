@@ -4,6 +4,7 @@ import {
     drawCells,
     getLegalCellChangesForCellType,
     isFull,
+    getCellTypeDistribution,
 } from '../board/Board';
 
 export function create(players) {
@@ -29,6 +30,7 @@ export function playCellChange(cellChange, game) {
 }
 
 export function tryPlayerSwitch(game) {
+
     const reversePlayer = getReversePlayer(game);
     if (!game.isFinished && !playerCanPlay(reversePlayer, game)) {
         if (!playerCanPlay(getCurrentPlayer(game), game)) {
@@ -38,6 +40,21 @@ export function tryPlayerSwitch(game) {
     }
 
     return switchPlayer(game);
+}
+
+export function getWinner(game) {
+    const cellDistribution = getCellTypeDistribution(game.board);
+
+    const currentPlayer = getCurrentPlayer(game);
+    const reversePlayer = getReversePlayer(game);
+
+    if (cellDistribution[currentPlayer.cellType] > cellDistribution[reversePlayer.cellType]) {
+        return currentPlayer;
+    } else if (cellDistribution[currentPlayer.cellType] < cellDistribution[reversePlayer.cellType]) {
+        return reversePlayer;
+    }
+
+    return null;
 }
 
 export function getCurrentPlayer(game) {

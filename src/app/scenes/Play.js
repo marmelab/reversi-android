@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Navigator, Text } from 'react-native';
+import { StyleSheet, View, Navigator } from 'react-native';
 import { Button } from 'react-native-material-design';
 import { connect } from 'react-redux';
 import Board from '../components/Board';
 import { placeCellChange } from '../actions/GameActions';
-import { getCurrentAvailableCellChanges, getCurrentPlayer } from '../../reversi/game/Game';
-import { getColor } from '../../reversi/cell/Cell';
+import { getCurrentAvailableCellChanges, getCurrentPlayer, getWinner } from '../../reversi/game/Game';
 import { getCellTypeDistribution } from '../../reversi/board/Board';
+import Overlay from '../components/Overlay';
+import PlayerBadge from '../components/PlayerBadge';
 
 const styles = StyleSheet.create({
     view: {
@@ -30,38 +31,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    player: {
-        flex: 1,
-        flexDirection: 'column',
-        padding: 5,
-        marginRight: 5,
-        height: 70,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    playerScore: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    playerName: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        paddingLeft: 8,
-    },
-    currentPlayer: {
-        borderWidth: 2,
-        borderColor: '#000',
-    },
-});
-
-const bulletStyle = color => ({
-    flex: -1,
-    borderRadius: 8,
-    height: 16,
-    width: 16,
-    backgroundColor: color,
 });
 
 const Play = ({ game, onCellClick, navigator }) => {
@@ -81,18 +50,18 @@ const Play = ({ game, onCellClick, navigator }) => {
                 <Board onCellClick={onCellClick} board={game.board} cellProposals={cellProposals} />
             </View>
             <View style={styles.playersContainer}>
-                {game.players.map((player, i) =>
-                    <View key={`player_${i}`} style={[styles.player, (player === getCurrentPlayer(game) ? styles.currentPlayer : {})]}>
-                        <View style={styles.playerScore}>
-                            <View style={bulletStyle(getColor(player.cellType))}></View>
-                            <Text style={{fontSize: 30, marginLeft: 10}}>{cellDistribution[player.cellType]}</Text>
-                        </View>
-                        <Text style={styles.playerName}>{player.name}</Text>
-                    </View>
+                {game.players.map(player =>
+                    <PlayerBadge
+                        key={`player_${player.cellType}`}
+                        player={player}
+                        isCurrentPlayer={player === getCurrentPlayer(game)}
+                        countCells={cellDistribution[player.cellType]}
+                    />,
                 )}
             </View>
+            {game.isFinished && <Overlay winner={getWinner(game)} />}
         </View>
-    )
+    );
 };
 
 Play.propTypes = {

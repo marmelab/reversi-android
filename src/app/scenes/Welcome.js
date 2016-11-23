@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Navigator, Text, Image } from 'react-native';
 import { Button } from 'react-native-material-design';
+import { connect } from 'react-redux';
+import { startNewGame } from '../actions/GameActions';
 
 const styles = StyleSheet.create({
     view: {
@@ -36,9 +38,12 @@ const styles = StyleSheet.create({
     },
 });
 
-const Welcome = ({ navigator }) => {
+const Welcome = ({ navigator, startNewGameAgainst }) => {
     const startPlaying = (playAgainstComputer) => {
-        return () => navigator.replace({ id: 'Play' });
+        return () => {
+            startNewGameAgainst(playAgainstComputer);
+            navigator.replace({ id: 'Play' });
+        };
     };
 
     return (
@@ -59,6 +64,12 @@ const Welcome = ({ navigator }) => {
 
 Welcome.propTypes = {
     navigator: React.PropTypes.instanceOf(Navigator),
+    startNewGameAgainst: React.PropTypes.func.isRequired,
 };
 
-export default Welcome;
+export default connect(
+    () => ({}),
+    dispatch => ({
+        startNewGameAgainst: againstComputer => dispatch(startNewGame(againstComputer)),
+    }),
+)(Welcome);
