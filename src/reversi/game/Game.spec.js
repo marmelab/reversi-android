@@ -26,6 +26,7 @@ describe('Game', () => {
             board: createBoard(8, 8),
             players,
             playerIndex: 0,
+            isFinished: false,
         };
 
         expect(create(players)).toEqual(expectedGame);

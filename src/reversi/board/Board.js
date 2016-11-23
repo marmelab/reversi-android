@@ -37,7 +37,7 @@ export function getDepartureCells(board) {
 }
 
 export function drawCells(cells, board) {
-    const newBoard = Object.assign(board);
+    const newBoard = Object.assign({}, board);
     cells.forEach((cell) => {
         newBoard.cells[cell.y][cell.x] = cell.type;
     });
@@ -49,6 +49,10 @@ export function getCellTypeDistribution(board) {
         ...result,
         [cellType]: board.cells.reduce((total, row) => total + row.filter(cellValue => cellValue === cellType).length, 0),
     }), {});
+}
+
+export function isFull(board) {
+    return getCellTypeDistribution(board)[TYPE_EMPTY] === 0;
 }
 
 export function validateSize(board) {

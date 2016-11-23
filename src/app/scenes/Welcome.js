@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
         textShadowColor: '#000000',
         textShadowOffset: { width: 5, height: 5 },
         textShadowRadius: 5,
+        marginTop: 16,
     },
     content: {
         flex: 2,
@@ -30,11 +31,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    button: {
+        marginBottom: 10,
+    },
 });
 
 const Welcome = ({ navigator }) => {
-    const startPlayingAgainstComputer = () => {
-        navigator.replace({ id: 'Play' });
+    const startPlaying = (playAgainstComputer) => {
+        return () => navigator.replace({ id: 'Play' });
     };
 
     return (
@@ -44,9 +48,9 @@ const Welcome = ({ navigator }) => {
                     <Text style={styles.title}>Othello</Text>
                 </View>
                 <View style={styles.content}>
-                    <Button text="Play against computer" onPress={startPlayingAgainstComputer} raised />
-                    <Button text="Play against another player" raised />
-                    <Button text="View my game history" raised theme="dark"/>
+                    <Button style={styles.button} text="Play against computer" onPress={startPlaying(true)} theme="light" raised />
+                    <Button text="Play against another player" onPress={startPlaying(false)} theme="light" raised />
+                    <Button text="View my game history" theme="light" raised />
                 </View>
             </Image>
         </View>

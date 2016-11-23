@@ -21,8 +21,8 @@ describe('Cell', () => {
     });
 
     it('getColor should return valid color for cell type', () => {
-        expect(getColor(create(0, 0, TYPE_WHITE))).toEqual('#FFFFFF');
-        expect(getColor(create(0, 0, TYPE_BLACK))).toEqual('#000000');
-        expect(getColor(create(0, 0, TYPE_EMPTY))).toEqual(null);
+        expect(getColor(TYPE_WHITE)).toEqual('#FFFFFF');
+        expect(getColor(TYPE_BLACK)).toEqual('#000000');
+        expect(getColor(TYPE_EMPTY)).toEqual('#079153');
     });
 });

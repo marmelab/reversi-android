@@ -2,6 +2,8 @@ import {
     create as createBoard,
     getFlippedCellsFromCellChange,
     drawCells,
+    getLegalCellChangesForCellType,
+    isFull,
 } from '../board/Board';
 
 export function create(players) {
@@ -9,18 +11,58 @@ export function create(players) {
         board: createBoard(8, 8),
         players,
         playerIndex: 0,
+        isFinished: false,
     };
-}
-
-export function switchPlayer(game) {
-    const newGame = Object.assign({}, game);
-    newGame.playerIndex = (newGame.playerIndex === 0) ? 1 : 0;
-    return newGame;
 }
 
 export function playCellChange(cellChange, game) {
     const newGame = Object.assign({}, game);
-    const flippedCells = [...getFlippedCellsFromCellChange(), cellChange];
-    newGame.board = drawCells(flippedCells);
-    return switchPlayer(newGame);
+
+    const flippedCells = [...getFlippedCellsFromCellChange(cellChange, newGame.board), cellChange];
+    newGame.board = drawCells(flippedCells, newGame.board);
+
+    if (isFull(newGame.board)) {
+        newGame.isFinished = true;
+    }
+
+    return newGame;
+}
+
+export function tryPlayerSwitch(game) {
+    const reversePlayer = getReversePlayer(game);
+    if (!game.isFinished && !playerCanPlay(reversePlayer, game)) {
+        if (!playerCanPlay(getCurrentPlayer(game), game)) {
+            throw new Error('Nobody can play !');
+        }
+        throw new Error(`${reversePlayer} can't play, play again !`);
+    }
+
+    return switchPlayer(game);
+}
+
+export function getCurrentPlayer(game) {
+    return game.players[game.playerIndex];
+}
+
+export function getReversePlayerIndex(game) {
+    return (game.playerIndex === 0) ? 1 : 0;
+}
+
+export function getReversePlayer(game) {
+    return game.players[getReversePlayerIndex(game)];
+}
+
+export function switchPlayer(game) {
+    const newGame = Object.assign({}, game);
+    newGame.playerIndex = getReversePlayerIndex(newGame);
+    return newGame;
+}
+
+export function playerCanPlay(player, game) {
+    return getLegalCellChangesForCellType(player.cellType, game.board).length > 0;
+}
+
+export function getCurrentAvailableCellChanges(game) {
+    const currentPlayer = getCurrentPlayer(game);
+    return getLegalCellChangesForCellType(currentPlayer.cellType, game.board);
 }
