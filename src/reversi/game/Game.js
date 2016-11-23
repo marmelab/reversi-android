@@ -9,7 +9,7 @@ import {
 
 export function create(players) {
     return {
-        board: createBoard(8, 8),
+        board: createBoard(4, 4),
         players,
         playerIndex: 0,
         isFinished: false,

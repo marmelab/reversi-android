@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Navigator, Text, Image } from 'react-native';
-import { Button } from 'react-native-material-design';
+import { StyleSheet, View, Navigator, Text, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { startNewGame } from '../actions/GameActions';
 
@@ -53,9 +52,9 @@ const Welcome = ({ navigator, startNewGameAgainst }) => {
                     <Text style={styles.title}>Othello</Text>
                 </View>
                 <View style={styles.content}>
-                    <Button style={styles.button} text="Play against computer" onPress={startPlaying(true)} theme="light" raised />
-                    <Button text="Play against another player" onPress={startPlaying(false)} theme="light" raised />
-                    <Button text="View my game history" theme="light" raised />
+                    <Button title="Play against computer" onPress={startPlaying(true)} color="#333" />
+                    <Button title="Play against another player" onPress={startPlaying(false)} color="#333" />
+                    <Button title="View my game history" onPress={() => {}} color="#333" />
                 </View>
             </Image>
         </View>

@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Navigator } from 'react-native';
-import { Button } from 'react-native-material-design';
+import { StyleSheet, View, Navigator, Button } from 'react-native';
 import { connect } from 'react-redux';
 import Board from '../components/Board';
 import { placeCellChange } from '../actions/GameActions';
@@ -44,7 +43,7 @@ const Play = ({ game, onCellClick, navigator }) => {
     return (
         <View style={styles.view}>
             <View style={styles.header}>
-                <Button onPress={goHome} text="Return to home" raised theme="light" />
+                <Button onPress={goHome} title="Back to home" color="#333" />
             </View>
             <View style={styles.boardContainer}>
                 <Board onCellClick={onCellClick} board={game.board} cellProposals={cellProposals} />
@@ -59,7 +58,7 @@ const Play = ({ game, onCellClick, navigator }) => {
                     />,
                 )}
             </View>
-            {game.isFinished && <Overlay winner={getWinner(game)} />}
+            {game.isFinished && <Overlay winner={getWinner(game)} onClickButton={goHome} />}
         </View>
     );
 };
