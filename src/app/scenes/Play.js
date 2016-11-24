@@ -40,7 +40,13 @@ class Play extends Component {
     }
 
     handleCellClick = (cell) => {
-        this.props.onCellClick(cell);
+        if (getCurrentPlayer(this.props.game).isHuman) {
+            try {
+                this.props.placeCellChange(cell);
+            } catch (e) {
+                alert(e);
+            }
+        }
     }
 
     render() {
@@ -75,11 +81,11 @@ class Play extends Component {
 
 Play.propTypes = {
     navigator: PropTypes.instanceOf(Navigator),
-    onCellClick: PropTypes.func.isRequired,
+    placeCellChange: PropTypes.func.isRequired,
     game: gamePropType,
 };
 
 export default connect(
     state => ({ game: state.Game }),
-    dispatch => ({ onCellClick: cell => dispatch(placeCellChange(cell)) }),
+    { placeCellChange },
 )(Play);

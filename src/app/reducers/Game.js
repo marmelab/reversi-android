@@ -11,7 +11,7 @@ const initGame = (againstComputer) => {
     if (againstComputer) {
         return createGame([
             createPlayer('You', TYPE_BLACK),
-            createPlayer('Computer', TYPE_WHITE, true),
+            createPlayer('Computer', TYPE_WHITE, false),
         ]);
     }
     return createGame([

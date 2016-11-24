@@ -56,7 +56,7 @@ class Welcome extends Component {
                     <View style={styles.content}>
                         <Button title="Play against computer" onPress={this.startPlaying(true)} color="#333" />
                         <Button title="Play against another player" onPress={this.startPlaying(false)} color="#333" />
-                        <Button title="View my game history" onPress={() => {}} color="#333" />
+                        { false && <Button title="View my game history" onPress={() => {}} color="#333" /> }
                     </View>
                 </Image>
             </View>
