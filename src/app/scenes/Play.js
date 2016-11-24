@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { StyleSheet, View, Navigator, Button } from 'react-native';
 import { connect } from 'react-redux';
 import Board from '../components/Board';
-import { placeCellChange } from '../actions/GameActions';
+import { placeCellChange, checkComputerTurn } from '../actions/GameActions';
 import { getCurrentAvailableCellChanges, getCurrentPlayer, getWinner } from '../../reversi/game/Game';
 import { getCellTypeDistribution } from '../../reversi/board/Board';
 import Overlay from '../components/Overlay';
@@ -46,6 +46,7 @@ class Play extends Component {
             } catch (e) {
                 alert(e);
             }
+            this.props.checkComputerTurn();
         }
     }
 
@@ -82,10 +83,11 @@ class Play extends Component {
 Play.propTypes = {
     navigator: PropTypes.instanceOf(Navigator),
     placeCellChange: PropTypes.func.isRequired,
+    checkComputerTurn: PropTypes.func.isRequired,
     game: gamePropType,
 };
 
 export default connect(
     state => ({ game: state.Game }),
-    { placeCellChange },
+    { placeCellChange, checkComputerTurn },
 )(Play);
