@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Cell from './Cell';
 import { create as createCell } from '../../reversi/cell/Cell';
+import { boardPropType, cellPropType } from '../../propTypes';
 
 const styles = StyleSheet.create({
     table: {
@@ -40,13 +41,9 @@ const Board = ({ board, onCellClick, cellProposals }) => {
 };
 
 Board.propTypes = {
-    board: React.PropTypes.shape({
-        cells: React.PropTypes.array.isRequired,
-    }),
-    cellProposals: React.PropTypes.arrayOf(
-        React.PropTypes.object,
-    ),
-    onCellClick: React.PropTypes.func.isRequired,
+    board: boardPropType.isRequired,
+    cellProposals: PropTypes.arrayOf(cellPropType),
+    onCellClick: PropTypes.func.isRequired,
 };
 
 export default Board;

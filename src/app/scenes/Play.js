@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import { StyleSheet, View, Navigator, Button } from 'react-native';
 import { connect } from 'react-redux';
 import Board from '../components/Board';
@@ -7,6 +7,7 @@ import { getCurrentAvailableCellChanges, getCurrentPlayer, getWinner } from '../
 import { getCellTypeDistribution } from '../../reversi/board/Board';
 import Overlay from '../components/Overlay';
 import PlayerBadge from '../components/PlayerBadge';
+import { gamePropType } from '../../propTypes';
 
 const styles = StyleSheet.create({
     view: {
@@ -32,56 +33,53 @@ const styles = StyleSheet.create({
     },
 });
 
-const Play = ({ game, onCellClick, navigator }) => {
-    const goHome = () => {
-        navigator.replace({ id: 'Welcome' });
-    };
+class Play extends Component {
 
-    const cellProposals = getCurrentAvailableCellChanges(game);
-    const cellDistribution = getCellTypeDistribution(game.board);
+    handleGoHomeClick = () => {
+        this.props.navigator.replace({ id: 'Welcome' });
+    }
 
-    return (
-        <View style={styles.view}>
-            <View style={styles.header}>
-                <Button onPress={goHome} title="Back to home" color="#333" />
+    handleCellClick = (cell) => {
+        this.props.onCellClick(cell);
+    }
+
+    render() {
+        const game = this.props.game;
+
+        const cellProposals = getCurrentAvailableCellChanges(game);
+        const cellDistribution = getCellTypeDistribution(game.board);
+
+        return (
+            <View style={styles.view}>
+                <View style={styles.header}>
+                    <Button onPress={this.handleGoHomeClick} title="Back to home" color="#333" />
+                </View>
+                <View style={styles.boardContainer}>
+                    <Board onCellClick={this.handleCellClick} board={game.board} cellProposals={cellProposals} />
+                </View>
+                <View style={styles.playersContainer}>
+                    {game.players.map(player =>
+                        <PlayerBadge
+                            key={`player_${player.cellType}`}
+                            player={player}
+                            isCurrentPlayer={player === getCurrentPlayer(game)}
+                            countCells={cellDistribution[player.cellType]}
+                        />,
+                    )}
+                </View>
+                {game.isFinished && <Overlay winner={getWinner(game)} onClickButton={this.handleGoHomeClick} />}
             </View>
-            <View style={styles.boardContainer}>
-                <Board onCellClick={onCellClick} board={game.board} cellProposals={cellProposals} />
-            </View>
-            <View style={styles.playersContainer}>
-                {game.players.map(player =>
-                    <PlayerBadge
-                        key={`player_${player.cellType}`}
-                        player={player}
-                        isCurrentPlayer={player === getCurrentPlayer(game)}
-                        countCells={cellDistribution[player.cellType]}
-                    />,
-                )}
-            </View>
-            {game.isFinished && <Overlay winner={getWinner(game)} onClickButton={goHome} />}
-        </View>
-    );
-};
+        );
+    }
+}
 
 Play.propTypes = {
-    navigator: React.PropTypes.instanceOf(Navigator),
-    onCellClick: React.PropTypes.func.isRequired,
-    game: React.PropTypes.shape({
-        board: React.PropTypes.object,
-    }),
+    navigator: PropTypes.instanceOf(Navigator),
+    onCellClick: PropTypes.func.isRequired,
+    game: gamePropType,
 };
 
-const mapStateToProps = state => ({ game: state.Game });
-
-const mapDispatchToProps = dispatch => (
-    {
-        onCellClick: (cell) => {
-            dispatch(placeCellChange(cell));
-        },
-    }
-);
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    state => ({ game: state.Game }),
+    dispatch => ({ onCellClick: cell => dispatch(placeCellChange(cell)) }),
 )(Play);

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { getColor } from '../../reversi/cell/Cell';
+import { playerPropType } from '../../propTypes';
 
 const styles = StyleSheet.create({
     player: {
@@ -48,12 +49,9 @@ const PlayerBadge = ({ player, countCells, isCurrentPlayer = false }) => (
 );
 
 PlayerBadge.propTypes = {
-    player: React.PropTypes.shape({
-        cellType: React.PropTypes.number.isRequired,
-        name: React.PropTypes.string.isRequired,
-    }),
-    isCurrentPlayer: React.PropTypes.bool,
-    countCells: React.PropTypes.number.isRequired,
+    player: playerPropType.isRequired,
+    isCurrentPlayer: PropTypes.bool,
+    countCells: PropTypes.number.isRequired,
 };
 
 export default PlayerBadge;

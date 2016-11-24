@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import { StyleSheet, View, Navigator, Text, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { startNewGame } from '../actions/GameActions';
@@ -37,38 +37,39 @@ const styles = StyleSheet.create({
     },
 });
 
-const Welcome = ({ navigator, startNewGameAgainst }) => {
-    const startPlaying = (playAgainstComputer) => {
-        return () => {
-            startNewGameAgainst(playAgainstComputer);
-            navigator.replace({ id: 'Play' });
-        };
-    };
+class Welcome extends Component {
 
-    return (
-        <View style={styles.view}>
-            <Image style={styles.backgroundImage} source={require('../../assets/background.png')}>
-                <View style={styles.header}>
-                    <Text style={styles.title}>Othello</Text>
-                </View>
-                <View style={styles.content}>
-                    <Button title="Play against computer" onPress={startPlaying(true)} color="#333" />
-                    <Button title="Play against another player" onPress={startPlaying(false)} color="#333" />
-                    <Button title="View my game history" onPress={() => {}} color="#333" />
-                </View>
-            </Image>
-        </View>
-    );
-};
+    startPlaying = playAgainstComputer => (
+        () => {
+            this.props.startNewGameAgainst(playAgainstComputer);
+            this.props.navigator.replace({ id: 'Play' });
+        }
+    )
+
+    render() {
+        return (
+            <View style={styles.view}>
+                <Image style={styles.backgroundImage} source={require('../../assets/background.png')}>
+                    <View style={styles.header}>
+                        <Text style={styles.title}>Othello</Text>
+                    </View>
+                    <View style={styles.content}>
+                        <Button title="Play against computer" onPress={this.startPlaying(true)} color="#333" />
+                        <Button title="Play against another player" onPress={this.startPlaying(false)} color="#333" />
+                        <Button title="View my game history" onPress={() => {}} color="#333" />
+                    </View>
+                </Image>
+            </View>
+        );
+    }
+}
 
 Welcome.propTypes = {
-    navigator: React.PropTypes.instanceOf(Navigator),
-    startNewGameAgainst: React.PropTypes.func.isRequired,
+    navigator: PropTypes.instanceOf(Navigator),
+    startNewGameAgainst: PropTypes.func.isRequired,
 };
 
 export default connect(
     () => ({}),
-    dispatch => ({
-        startNewGameAgainst: againstComputer => dispatch(startNewGame(againstComputer)),
-    }),
+    dispatch => ({ startNewGameAgainst: againstComputer => dispatch(startNewGame(againstComputer)) }),
 )(Welcome);

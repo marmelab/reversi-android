@@ -1,7 +1,5 @@
-import {
-    PLACE_CELL_CHANGE,
-    START_NEW_GAME,
-} from './ActionTypes';
+export const PLACE_CELL_CHANGE = 'PLACE_CELL_CHANGE';
+export const START_NEW_GAME = 'START_NEW_GAME';
 
 export function placeCellChange(cellChange) {
     return {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -27,7 +27,7 @@ const Overlay = ({ winner, onClickButton }) => (
 );
 
 Overlay.propTypes = {
-    onClickButton: React.PropTypes.func,
+    onClickButton: PropTypes.func,
 };
 
 export default Overlay;

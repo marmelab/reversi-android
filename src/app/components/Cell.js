@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import {
     StyleSheet,
@@ -6,6 +6,7 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 
+import { cellPropType } from '../../propTypes';
 import { getColor, TYPE_EMPTY } from '../../reversi/cell/Cell';
 
 const styles = StyleSheet.create({
@@ -37,13 +38,9 @@ const Cell = ({ cell, onClick, isProposal = false }) =>
 ;
 
 Cell.propTypes = {
-    cell: React.PropTypes.shape({
-        type: React.PropTypes.number.isRequired,
-        x: React.PropTypes.number.isRequired,
-        y: React.PropTypes.number.isRequired,
-    }),
-    onClick: React.PropTypes.func,
-    isProposal: React.PropTypes.bool,
+    cell: cellPropType,
+    onClick: PropTypes.func,
+    isProposal: PropTypes.bool,
 };
 
 export default Cell;

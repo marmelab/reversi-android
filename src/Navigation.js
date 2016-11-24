@@ -7,11 +7,11 @@ export default () => {
     const renderNavigationScene = (route, navigator) => {
         switch (route.id) {
         case 'Welcome':
-            return (<Welcome navigator={navigator} title="Welcome" />);
+            return <Welcome navigator={navigator} title="Welcome" />;
         case 'Play':
-            return (<Play navigator={navigator} title="Play" />);
+            return <Play navigator={navigator} title="Play" />;
         default:
-            return (<View />);
+            return <View />;
         }
     };
 

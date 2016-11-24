@@ -1,7 +1,7 @@
 import {
     PLACE_CELL_CHANGE,
     START_NEW_GAME,
-} from '../actions/ActionTypes';
+} from '../actions/GameActions';
 
 import { create as createPlayer } from '../../reversi/player/Player';
 import { create as createGame, playCellChange, tryPlayerSwitch } from '../../reversi/game/Game';
