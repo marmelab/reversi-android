@@ -6,7 +6,7 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 
-import { cellPropType } from '../../propTypes';
+import { cellPropType } from '../propTypes';
 import { getColor, TYPE_EMPTY } from '../../reversi/cell/Cell';
 import Appear from './Appear';
 

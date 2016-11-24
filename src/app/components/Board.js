@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Cell from './Cell';
 import { create as createCell } from '../../reversi/cell/Cell';
-import { boardPropType, cellPropType } from '../../propTypes';
+import { boardPropType, cellPropType } from '../propTypes';
 
 const styles = StyleSheet.create({
     table: {

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { getColor } from '../../reversi/cell/Cell';
-import { playerPropType } from '../../propTypes';
+import { playerPropType } from '../propTypes';
 
 const styles = StyleSheet.create({
     player: {
