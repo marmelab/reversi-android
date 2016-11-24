@@ -7,7 +7,7 @@ import { getCurrentAvailableCellChanges, getCurrentPlayer, getWinner } from '../
 import { getCellTypeDistribution } from '../../reversi/board/Board';
 import Overlay from '../components/Overlay';
 import PlayerBadge from '../components/PlayerBadge';
-import { gamePropType } from '../../propTypes';
+import { gamePropType } from '../propTypes';
 
 const styles = StyleSheet.create({
     view: {

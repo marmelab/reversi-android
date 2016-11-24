@@ -13,6 +13,7 @@ export function create(players) {
         players,
         playerIndex: 0,
         isFinished: false,
+        date: new Date(),
     };
 }
 

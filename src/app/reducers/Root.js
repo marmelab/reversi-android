@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import Game from './Game';
-import LastGames from './LastGames';
+import GameHistory from './GameHistory';
 
 export default combineReducers({
     Game,
-    LastGames,
+    GameHistory,
 });

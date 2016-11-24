@@ -1,13 +1,11 @@
 import { takeEvery } from 'redux-saga';
 import { put, select, call } from 'redux-saga/effects';
-import { placeCellChange, CHECK_COMPUTER_TURN } from '../actions/GameActions';
+import { placeCellChange, addGameToHistory, CHECK_COMPUTER_TURN, PLACE_CELL_CHANGE } from '../actions/GameActions';
 import { getCurrentPlayer, playerCanPlay } from '../../reversi/game/Game';
 import { create as createCell } from '../../reversi/cell/Cell';
 
 function* checkComputerTurn(action) {
-    const getGame = state => state.Game;
-
-    const game = yield select(getGame);
+    const game = yield select(state => state.Game);
     const currentPlayer = getCurrentPlayer(game);
 
     if (game.isFinished || currentPlayer.isHuman || !playerCanPlay(currentPlayer, game)) {
@@ -29,8 +27,24 @@ function* checkComputerTurn(action) {
     }
 }
 
+function* checkForFinishedGame(action) {
+    const game = yield select(state => state.Game);
+    if (game.isFinished){
+        yield put(addGameToHistory(game));
+    }
+}
+
 function* checkComputerTurnAsync() {
     yield takeEvery(CHECK_COMPUTER_TURN, checkComputerTurn);
 }
 
-export default checkComputerTurnAsync;
+function* checkForFinishedGameAsync() {
+    yield takeEvery(PLACE_CELL_CHANGE, checkForFinishedGame);
+}
+
+export default function* () {
+  yield [
+    checkComputerTurnAsync(),
+    checkForFinishedGameAsync()
+  ]
+}

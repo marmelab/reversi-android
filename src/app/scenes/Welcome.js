@@ -46,6 +46,10 @@ class Welcome extends Component {
         }
     )
 
+    goToGameHistory = () => {
+        this.props.navigator.replace({ id: 'GameHistory' });
+    }
+
     render() {
         return (
             <View style={styles.view}>
@@ -54,9 +58,15 @@ class Welcome extends Component {
                         <Text style={styles.title}>Othello</Text>
                     </View>
                     <View style={styles.content}>
-                        <Button title="Play against computer" onPress={this.startPlaying(true)} color="#333" />
-                        <Button title="Play against another player" onPress={this.startPlaying(false)} color="#333" />
-                        { false && <Button title="View my game history" onPress={() => {}} color="#333" /> }
+                        <View style={{marginBottom: 30}}>
+                            <Button title="Play against computer" onPress={this.startPlaying(true)} color="#333" />
+                        </View>
+                        <View style={{marginBottom: 30}}>
+                            <Button title="Play against another player" onPress={this.startPlaying(false)} color="#333" />
+                        </View>
+                        <View style={{marginBottom: 30}}>
+                            <Button title="View my game history" onPress={this.goToGameHistory} color="#333" />
+                        </View>
                     </View>
                 </Image>
             </View>
