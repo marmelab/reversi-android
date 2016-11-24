@@ -8,6 +8,7 @@ import {
 
 import { cellPropType } from '../../propTypes';
 import { getColor, TYPE_EMPTY } from '../../reversi/cell/Cell';
+import Appear from './Appear';
 
 const styles = StyleSheet.create({
     cell: {
@@ -31,7 +32,7 @@ const Cell = ({ cell, onClick, isProposal = false }) =>
     <View style={styles.cell}>
         <TouchableWithoutFeedback onPress={onClick}>
             <View style={discStyle((isProposal ? getColor(TYPE_EMPTY) : getColor(cell.type)), false)}>
-                { isProposal ? <View style={discStyle(getColor(cell.type), true)} /> : <View /> }
+                { isProposal ? <Appear><View style={discStyle(getColor(cell.type), true)} /></Appear> : <View /> }
             </View>
         </TouchableWithoutFeedback>
     </View>

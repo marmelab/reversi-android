@@ -1,4 +1,4 @@
-.PHONY: install run start-server test lint
+.PHONY: install run start-server test lint build
 
 install:
 	npm install
@@ -14,3 +14,6 @@ test:
 
 lint:
 	node_modules/.bin/eslint src/
+
+build:
+	cd android && ./gradlew assembleRelease
