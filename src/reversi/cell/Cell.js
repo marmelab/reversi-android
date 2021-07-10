@@ -10,14 +10,14 @@ export function create(x, y, type) {
     };
 }
 
-export function getColor(cell) {
-    switch (cell.type) {
+export function getColor(type) {
+    switch (type) {
     case TYPE_BLACK:
         return '#000000';
     case TYPE_WHITE:
         return '#FFFFFF';
     default:
-        return null;
+        return '#079153';
     }
 }
 

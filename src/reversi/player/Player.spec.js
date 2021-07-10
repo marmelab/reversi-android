@@ -11,6 +11,7 @@ describe('Player', () => {
         expect(create('john', TYPE_BLACK)).toEqual({
             name: 'john',
             cellType: TYPE_BLACK,
+            isHuman: true,
         });
     });
 });
